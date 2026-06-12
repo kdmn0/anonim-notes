@@ -1,0 +1,32 @@
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.header h1 {
+  margin: 0;
+  font-family: var(--font-note);
+  font-size: 2rem;
+  color: #333;
+}
+
+.header p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  color: #666;
+}

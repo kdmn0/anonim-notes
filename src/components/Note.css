@@ -1,0 +1,64 @@
+.note-container {
+  position: absolute;
+  width: 200px;
+  min-height: 200px;
+  padding: 20px;
+  padding-top: 30px;
+  background-color: var(--note-color, #feff9c);
+  box-shadow: 2px 5px 10px rgba(0,0,0,0.3);
+  font-family: var(--font-note);
+  font-size: 1.5rem;
+  color: #222;
+  transition: transform 0.2s ease, z-index 0s;
+  cursor: grab;
+  /* Add slight border to make it look like paper */
+  border: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.note-container:hover {
+  transform: scale(1.05) rotate(0deg) !important; /* On hover, we straighten and enlarge */
+  z-index: 100;
+  box-shadow: 5px 10px 20px rgba(0,0,0,0.4);
+}
+
+.note-pin {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at 30% 30%, #ff5e5e, #cc0000);
+  border-radius: 50%;
+  box-shadow: 
+    -2px 2px 4px rgba(0,0,0,0.4),
+    inset -2px -2px 4px rgba(0,0,0,0.4);
+  z-index: 2;
+}
+
+.note-pin::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 4px;
+  height: 4px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 50%;
+}
+
+.note-content {
+  flex: 1;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.note-footer {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: rgba(0,0,0,0.5);
+  text-align: right;
+}

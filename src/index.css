@@ -1,0 +1,35 @@
+:root {
+  --bg-cork: #d4a373;
+  --text-main: #333;
+  --font-ui: 'Inter', sans-serif;
+  --font-note: 'Caveat', cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-ui);
+  color: var(--text-main);
+  background-color: var(--bg-cork);
+  background-image: url('https://www.transparenttextures.com/patterns/cork-board.png'); /* A nice seamless cork texture */
+  overflow: hidden; /* we want to pan or have a fixed board */
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: auto; /* let user scroll if board is large, but for now fixed viewport is fine */
+}
+
+/* Base button styles */
+button {
+  font-family: var(--font-ui);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
