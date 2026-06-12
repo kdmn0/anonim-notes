@@ -9,12 +9,17 @@ const COLORS = [
   '#7afcff', // Blue
   '#b2ff9e', // Green
   '#ffc085', // Orange
+  '#d4a5ff', // Purple
+  '#ffb3ba', // Light red
+  '#e2f0cb', // Light lime
 ];
 
 const SHAPES = [
   { id: 'square', label: 'Kare' },
   { id: 'circle', label: 'Yuvarlak' },
   { id: 'rectangle', label: 'Dikdörtgen' },
+  { id: 'cloud', label: 'Bulut' },
+  { id: 'heart', label: 'Kalp' },
 ];
 
 function AddNoteForm() {

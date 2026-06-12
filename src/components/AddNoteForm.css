@@ -89,6 +89,7 @@
 
 .shape-picker {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -115,6 +116,7 @@
 
 .color-picker {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 

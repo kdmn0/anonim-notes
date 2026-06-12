@@ -1,6 +1,8 @@
 import React, { useMemo, useState, useRef } from 'react';
 import './Note.css';
 
+let globalZIndex = 1;
+
 function Note({ message, onMoveEnd }) {
   // Generate a random slight rotation for realism (-5deg to 5deg)
   const rotation = useMemo(() => {
@@ -9,12 +11,16 @@ function Note({ message, onMoveEnd }) {
 
   const [position, setPosition] = useState({ x: message.position_x, y: message.position_y });
   const [isDragging, setIsDragging] = useState(false);
+  const [localZIndex, setLocalZIndex] = useState(1);
   const dragRef = useRef({ startX: 0, startY: 0, initialX: 0, initialY: 0 });
 
   const handlePointerDown = (e) => {
     // Sadece sol tıklamada çalışsın
     if (e.button !== undefined && e.button !== 0) return;
     
+    globalZIndex += 1;
+    setLocalZIndex(globalZIndex);
+
     setIsDragging(true);
     e.target.setPointerCapture(e.pointerId); // Fareyi hızlı hareket ettirince objeden çıkmasını önler
     
@@ -75,7 +81,7 @@ function Note({ message, onMoveEnd }) {
     left: `${position.x}%`,
     '--note-color': actualColor,
     transform: `rotate(${rotation}deg)`,
-    zIndex: isDragging ? 1000 : 1,
+    zIndex: isDragging ? 10000 : localZIndex,
     cursor: isDragging ? 'grabbing' : 'grab',
   };
 
