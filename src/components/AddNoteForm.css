@@ -80,10 +80,42 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.shape-picker {
+  display: flex;
+  gap: 8px;
+}
+
+.shape-option {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.shape-option:hover {
+  background: #eee;
+}
+
+.shape-option.selected {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
 .color-picker {
   display: flex;
   gap: 12px;
-  margin: 16px 0;
 }
 
 .color-option {

@@ -11,10 +11,17 @@ const COLORS = [
   '#ffc085', // Orange
 ];
 
+const SHAPES = [
+  { id: 'square', label: 'Kare' },
+  { id: 'circle', label: 'Yuvarlak' },
+  { id: 'rectangle', label: 'Dikdörtgen' },
+];
+
 function AddNoteForm() {
   const [isOpen, setIsOpen] = useState(false);
   const [content, setContent] = useState('');
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
+  const [selectedShape, setSelectedShape] = useState(SHAPES[0].id);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cooldown, setCooldown] = useState(0);
 
@@ -43,7 +50,7 @@ function AddNoteForm() {
     setIsSubmitting(true);
     const newNote = {
       content: content.slice(0, 250), // Frontend'de de ekstra garanti kesme
-      color: selectedColor,
+      color: `${selectedColor}|${selectedShape}`,
       position_x: Math.floor(Math.random() * 80) + 10,
       position_y: Math.floor(Math.random() * 70) + 10,
     };
@@ -88,15 +95,30 @@ function AddNoteForm() {
                 autoFocus
               />
               
-              <div className="color-picker">
-                {COLORS.map(color => (
-                  <div
-                    key={color}
-                    className={`color-option ${selectedColor === color ? 'selected' : ''}`}
-                    style={{ backgroundColor: color }}
-                    onClick={() => setSelectedColor(color)}
-                  />
-                ))}
+              <div className="form-row">
+                <div className="shape-picker">
+                  {SHAPES.map(shape => (
+                    <button
+                      key={shape.id}
+                      type="button"
+                      className={`shape-option ${selectedShape === shape.id ? 'selected' : ''}`}
+                      onClick={() => setSelectedShape(shape.id)}
+                    >
+                      {shape.label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="color-picker">
+                  {COLORS.map(color => (
+                    <div
+                      key={color}
+                      className={`color-option ${selectedColor === color ? 'selected' : ''}`}
+                      style={{ backgroundColor: color }}
+                      onClick={() => setSelectedColor(color)}
+                    />
+                  ))}
+                </div>
               </div>
 
               <button 

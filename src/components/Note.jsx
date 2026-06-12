@@ -66,14 +66,20 @@ function Note({ message, onMoveEnd }) {
     }
   }, [message.position_x, message.position_y, isDragging]);
 
+  // Parse color and shape from message.color
+  const colorData = message.color || '#feff9c';
+  const [actualColor, actualShape = 'square'] = colorData.split('|');
+
   const style = {
     top: `${position.y}%`,
     left: `${position.x}%`,
-    '--note-color': message.color,
+    '--note-color': actualColor,
     transform: `rotate(${rotation}deg)`,
     zIndex: isDragging ? 1000 : 1,
     cursor: isDragging ? 'grabbing' : 'grab',
   };
+
+  const shapeClass = `note-shape-${actualShape}`;
 
   const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -89,7 +95,7 @@ function Note({ message, onMoveEnd }) {
 
   return (
     <div 
-      className="note-container" 
+      className={`note-container ${shapeClass}`} 
       style={style}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}

@@ -1,9 +1,5 @@
 .note-container {
   position: absolute;
-  width: 200px;
-  min-height: 200px;
-  padding: 20px;
-  padding-top: 30px;
   background-color: var(--note-color, #feff9c);
   box-shadow: 2px 5px 10px rgba(0,0,0,0.3);
   font-family: var(--font-note);
@@ -15,6 +11,39 @@
   border: 1px solid rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
+}
+
+.note-shape-square {
+  width: 200px;
+  min-height: 200px;
+  padding: 20px;
+  padding-top: 30px;
+}
+
+.note-shape-rectangle {
+  width: 280px;
+  min-height: 160px;
+  padding: 20px;
+  padding-top: 30px;
+}
+
+.note-shape-circle {
+  width: 240px;
+  min-height: 240px;
+  border-radius: 50%;
+  padding: 40px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.note-shape-circle .note-pin {
+  top: 15px;
+}
+
+.note-shape-circle .note-footer {
+  text-align: center;
+  margin-top: 10px;
 }
 
 .note-container:hover {
