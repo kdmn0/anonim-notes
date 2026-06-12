@@ -75,6 +75,18 @@ function Note({ message, onMoveEnd }) {
     cursor: isDragging ? 'grabbing' : 'grab',
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleString('tr-TR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   return (
     <div 
       className="note-container" 
@@ -88,6 +100,11 @@ function Note({ message, onMoveEnd }) {
       <div className="note-content">
         {message.content}
       </div>
+      {message.created_at && (
+        <div className="note-footer">
+          {formatDate(message.created_at)}
+        </div>
+      )}
     </div>
   );
 }

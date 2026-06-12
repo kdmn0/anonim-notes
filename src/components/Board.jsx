@@ -4,9 +4,9 @@ import Note from './Note';
 import { supabase, isSupabaseConfigured } from '../supabaseClient';
 
 const MOCK_MESSAGES = [
-  { id: 1, content: "Bu proje harika olacak!", color: "#ff7eb9", position_x: 20, position_y: 30 },
-  { id: 2, content: "Anonim olmak bazen rahatlatıcıdır.", color: "#7afcff", position_x: 50, position_y: 60 },
-  { id: 3, content: "Supabase bağlantısı henüz yapılmadı. Bilgileri girin!", color: "#feff9c", position_x: 70, position_y: 20 },
+  { id: 1, content: "Bu proje harika olacak!", color: "#ff7eb9", position_x: 20, position_y: 30, created_at: new Date(Date.now() - 100000).toISOString() },
+  { id: 2, content: "Anonim olmak bazen rahatlatıcıdır.", color: "#7afcff", position_x: 50, position_y: 60, created_at: new Date(Date.now() - 50000).toISOString() },
+  { id: 3, content: "Supabase bağlantısı henüz yapılmadı. Bilgileri girin!", color: "#feff9c", position_x: 70, position_y: 20, created_at: new Date().toISOString() },
 ];
 
 function Board() {
