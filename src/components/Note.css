@@ -8,6 +8,10 @@
   cursor: grab;
   display: flex;
   flex-direction: column;
+  touch-action: none; /* Mobilde notu sürüklerken sayfanın kaymasını engeller */
+  user-select: none; /* Yazıların yanlışlıkla seçilip sürüklemeyi bozmasını engeller */
+  -webkit-user-select: none;
+  will-change: transform, top, left;
 }
 
 .note-shape-square {
@@ -59,7 +63,6 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  position: relative;
 }
 
 .note-shape-cloud::before {
@@ -96,7 +99,6 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  position: relative;
   padding: 60px 30px 40px 30px;
   margin-top: 20px;
 }

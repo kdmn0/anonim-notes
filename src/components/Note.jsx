@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef } from 'react';
+import React, { useMemo, useState, useRef, memo } from 'react';
 import './Note.css';
 
 let globalZIndex = 1;
@@ -12,7 +12,8 @@ function Note({ message, onMoveEnd }) {
   const [position, setPosition] = useState({ x: message.position_x, y: message.position_y });
   const [isDragging, setIsDragging] = useState(false);
   const [localZIndex, setLocalZIndex] = useState(1);
-  const dragRef = useRef({ startX: 0, startY: 0, initialX: 0, initialY: 0 });
+  const dragRef = useRef({ startX: 0, startY: 0, initialX: 0, initialY: 0, lastX: 0, lastY: 0 });
+  const divRef = useRef(null);
 
   const handlePointerDown = (e) => {
     // Sadece sol tıklamada çalışsın
@@ -28,7 +29,9 @@ function Note({ message, onMoveEnd }) {
       startX: e.clientX,
       startY: e.clientY,
       initialX: position.x,
-      initialY: position.y
+      initialY: position.y,
+      lastX: position.x,
+      lastY: position.y
     };
   };
 
@@ -46,10 +49,16 @@ function Note({ message, onMoveEnd }) {
     let newY = Math.round(dragRef.current.initialY + percentY);
 
     // Ekran dışına çıkmasını engelle
-    newX = Math.max(0, Math.min(newX, 90));
-    newY = Math.max(0, Math.min(newY, 90));
+    newX = Math.max(0, Math.min(Number(newX), 90));
+    newY = Math.max(0, Number(newY)); // Aşağı doğru sınır yok, dilediği kadar aşağı çekilebilir
 
-    setPosition({ x: newX, y: newY });
+    dragRef.current.lastX = newX;
+    dragRef.current.lastY = newY;
+
+    if (divRef.current) {
+      divRef.current.style.left = `${newX}%`;
+      divRef.current.style.top = `${newY}%`;
+    }
   };
 
   const handlePointerUp = (e) => {
@@ -57,10 +66,15 @@ function Note({ message, onMoveEnd }) {
     setIsDragging(false);
     e.target.releasePointerCapture(e.pointerId);
 
+    const finalX = dragRef.current.lastX;
+    const finalY = dragRef.current.lastY;
+
+    setPosition({ x: finalX, y: finalY });
+
     // Dışarıya kaydetmesi için haber ver (sadece pozisyon değiştiyse)
-    if (position.x !== dragRef.current.initialX || position.y !== dragRef.current.initialY) {
+    if (finalX !== dragRef.current.initialX || finalY !== dragRef.current.initialY) {
       if (onMoveEnd) {
-        onMoveEnd(message.id, position.x, position.y);
+        onMoveEnd(message.id, finalX, finalY);
       }
     }
   };
@@ -101,6 +115,7 @@ function Note({ message, onMoveEnd }) {
 
   return (
     <div 
+      ref={divRef}
       className={`note-container ${shapeClass}`} 
       style={style}
       onPointerDown={handlePointerDown}
@@ -121,4 +136,4 @@ function Note({ message, onMoveEnd }) {
   );
 }
 
-export default Note;
+export default memo(Note);

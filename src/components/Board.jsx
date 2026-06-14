@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './Board.css';
 import Note from './Note';
 import { supabase, isSupabaseConfigured } from '../supabaseClient';
@@ -63,11 +63,11 @@ function Board() {
     };
   }, []);
 
-  const handleMoveEnd = async (id, newX, newY) => {
-    if (!isSupabaseConfigured) return;
-    
-    // Optimistic Update: Ekranda anında pozisyonu güncelle
+  const handleMoveEnd = useCallback(async (id, newX, newY) => {
+    // Optimistic Update: Ekranda anında pozisyonu güncelle (Supabase olmasa bile yerinde kalsın)
     setMessages((prev) => prev.map(m => m.id === id ? { ...m, position_x: newX, position_y: newY } : m));
+
+    if (!isSupabaseConfigured) return;
 
     // Supabase veritabanını güncelle
     const { error } = await supabase
@@ -78,7 +78,7 @@ function Board() {
     if (error) {
       console.error("Not taşınırken hata oluştu:", error);
     }
-  };
+  }, []);
 
   if (loading) {
     return <div className="board-message">Panodaki notlar yükleniyor...</div>;
